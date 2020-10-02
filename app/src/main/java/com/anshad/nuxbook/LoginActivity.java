@@ -20,10 +20,18 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout textPasswordInput;
     private Button loginButton;
     private ProgressBar progressBar;
+    private NuxPreferences preferences;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        preferences = new NuxPreferences(this);
+        if(preferences.isLoggedIn()) {
+            startMainActivity();
+            finish();
+        }
+
         setContentView(R.layout.activity_login);
 
         textUsernameLayout = findViewById(R.id.textUsernameLayout);
@@ -43,6 +51,8 @@ public class LoginActivity extends AppCompatActivity {
         textPasswordInput
                 .getEditText()
                 .addTextChangedListener(createTextWatcher(textPasswordInput));
+
+
     }
 
     private void onLoginClicked() {
@@ -60,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void performLogin() {
+        preferences.setLoggedIn(true);
         textUsernameLayout.setEnabled(false);
         textPasswordInput.setEnabled(false);
         loginButton.setVisibility(View.INVISIBLE);
