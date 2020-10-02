@@ -52,7 +52,16 @@ public class LoginActivity extends AppCompatActivity {
             textPasswordInput.setError("Password must not be empty");
         } else if(!username.equals("admin") && !password.equals("admin")) {
             showErrorDialog();
+        } else {
+            performLogin();
         }
+    }
+
+    private void performLogin() {
+        textUsernameLayout.setEnabled(false);
+        textPasswordInput.setEnabled(false);
+        loginButton.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     private void showErrorDialog() {
